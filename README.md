@@ -173,8 +173,6 @@ Lives in `src/pages/workshops/Climate.tsx`, registry in `src/lib/climate/experim
 
 The workshop ships with an AI tutor — the **Workshop Companion** — that lives as a floating button in every lab. Ask it anything. It reads the live state of what the student is doing and answers **grounded in those numbers**.
 
-```
-
 ### What makes it *work* (the secret)
 
 Most LLM wrappers fail because the model sees raw numeric indices (`reaction=5`, `body_A=2`) and guesses what they map to. Workshop solves this by shipping **three layers of context** with every ask:
