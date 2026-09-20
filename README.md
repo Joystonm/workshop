@@ -4,7 +4,7 @@
 
 Workshop is a free, browser-based learning environment that turns science into hands-on experimentation. Four "labs" ship today: a CAD sandbox, a Physics simulator, a Chemistry lab, and an Earth & Climate observatory pulling from live public APIs. Across all four, a context-aware **AI Companion** watches what the student is doing and answers questions grounded in the actual experiment state — not in a hardcoded textbook.
 
-The motivation is personal. School science mostly asks students to memorize the *answer* (mass cancels in the pendulum period, pH = -log[H⁺], CO₂ traps heat) and then grades them on whether they reproduced it. Workshop deletes the gradebook and keeps the lab. You drag the slider, the simulation reacts, the AI tutor references the specific numbers on screen, and you discover the rule yourself. If the rule is wrong, you find out immediately — not on a midterm.
+The motivation is personal. School science mostly asks students to memorize the *answer* (mass cancels in the pendulum period, pH = -log[H⁺], CO₂ traps heat) and then grades them on whether they reproduced it. Workshop deletes the gradebook and keeps the lab. You drag the slider, the simulation reacts, the AI tutor references the specific numbers on screen, and you discover the rule yourself. If the rule is wrong, you find out immediately not on a midterm.
 
 **Build → Experiment → Break → Change → Try Again → Understand.**
 
