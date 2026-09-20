@@ -182,23 +182,23 @@ sequenceDiagram
     participant L as MiniMax-M3 (GMI Cloud)
     participant W as Firecrawl
 
-    U->>F: ask "why didn't the period change?"
-    F->>C: askCompanion(contextSnapshot, question)
-    C->>L: probe with context + [CONFIDENT]/[NEED_EXTERNAL] instruction
+    U->>F: ask why the period did not change
+    F->>C: askCompanion with contextSnapshot and question
+    C->>L: probe with CONFIDENT or NEED_EXTERNAL instruction
     alt Model is confident
         L-->>C: answer
     else Model needs external info
-        C->>W: search(query) (12s timeout)
+        C->>W: search query with 12s timeout
         alt sources found
-            W-->>C: titles + snippets
+            W-->>C: titles and snippets
             C->>L: re-ask with sources baked into prompt
             L-->>C: source-grounded answer
         else no sources
-            C-->>F: "I couldn't reach external sources. My best guess: ..."
+            C-->>F: could not reach external sources, best guess follows
         end
     end
-    C-->>F: { answer, usedFirecrawl }
-    F->>U: rendered reply (TL;DR + Data + Explain + Try this)
+    C-->>F: answer and usedFirecrawl flag
+    F->>U: rendered reply with TL;DR, Data, Explain, Try this sections
 ```
 
 ### What makes it *work* (the secret)
