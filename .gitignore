@@ -1,2 +1,13 @@
-
 .env.local
+
+# Media — never commit recordings / videos / raw audio to source control.
+# Use Git LFS or external hosting (Drive, Loom, S3) for any file in this block.
+*.mp4
+*.mov
+*.webm
+*.avi
+*.mkv
+*.mp3
+*.wav
+recording.mp4
+presentation-recording.*
