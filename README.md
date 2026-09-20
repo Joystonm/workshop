@@ -22,7 +22,6 @@ The motivation is personal. School science mostly asks students to memorize the 
 7. [Getting started](#getting-started)
 8. [Environment variables](#environment-variables)
 9. [Deployment](#deployment)
-10. [Hackathon submission notes](#hackathon-submission-notes)
 
 
 ---
@@ -174,31 +173,6 @@ Lives in `src/pages/workshops/Climate.tsx`, registry in `src/lib/climate/experim
 
 The workshop ships with an AI tutor — the **Workshop Companion** — that lives as a floating button in every lab. Ask it anything. It reads the live state of what the student is doing and answers **grounded in those numbers**.
 
-```mermaid
-sequenceDiagram
-    participant U as Student
-    participant F as Frontend
-    participant C as Convex companion.ts
-    participant L as MiniMax-M3 (GMI Cloud)
-    participant W as Firecrawl
-
-    U->>F: ask why the period did not change
-    F->>C: askCompanion with contextSnapshot and question
-    C->>L: probe with CONFIDENT or NEED_EXTERNAL instruction
-    alt Model is confident
-        L-->>C: answer
-    else Model needs external info
-        C->>W: search query with 12s timeout
-        alt sources found
-            W-->>C: titles and snippets
-            C->>L: re-ask with sources baked into prompt
-            L-->>C: source-grounded answer
-        else no sources
-            C-->>F: could not reach external sources, best guess follows
-        end
-    end
-    C-->>F: answer and usedFirecrawl flag
-    F->>U: rendered reply with TL;DR, Data, Explain, Try this sections
 ```
 
 ### What makes it *work* (the secret)
@@ -314,45 +288,6 @@ The 12-table Convex schema (`convex/schema.ts`) covers users, workshops, experim
 | Earth data   | Open-Meteo / USGS FDSN / NASA POWER / NASA EPIC / NASA APOD      | —       |
 
 
----
-
-## Repository layout
-
-```
-workshop/
-├── convex/                 # Convex backend
-│   ├── _generated/         # Convex-generated api.d.ts, dataModel.d.ts (do not edit)
-│   ├── schema.ts           # All 12 tables
-│   ├── companion.ts        # Threads, messages, askCompanion action (MiniMax + Firecrawl)
-│   ├── companionCatalog.ts # Compact catalog used inside the system prompt
-│   ├── ai.ts               # Original aiGenerateHint / aiGenerateChallenge / researchTopic
-│   ├── workshop.ts         # Workshops, experiments, attempts, projects, progress CRUD
-│   ├── convex.config.ts    # `app.use(staticHosting)` registration
-│   ├── http.ts             # `registerStaticRoutes(http, components.staticHosting)`
-│   └── ...
-├── src/
-│   ├── pages/
-│   │   ├── Home.tsx                       # Landing page
-│   │   └── workshops/{Physics,Chemistry,CAD,Climate}.tsx
-│   ├── components/
-│   │   ├── WorkshopShell.tsx              # Per-lab shell (header + content)
-│   │   └── companion/                     # CompanionHeaderButton, Fab, Panel, suggestions
-│   ├── hooks/
-│   │   └── useCompanionContext.tsx        # Publishes live snapshot
-│   ├── lib/
-│   │   ├── physics/                       # 12 experiments + engine.ts (RK2 @ 120Hz)
-│   │   ├── chemistry/                     # 11 experiments + molecules/reactions/elements/etc.
-│   │   ├── cad/                           # store, geometry, simulation, persistence
-│   │   └── climate/                       # store, engine, experiments/* (11 scenes)
-│   ├── styles/                            # Global CSS + design tokens (DESIGN.md spirit)
-│   └── main.tsx, App.tsx, ...
-├── convex.json                             # Convex project config
-├── DESIGN.md                               # Design system specification
-├── hackathon.md                            # Hackathon build log
-├── setup.md                                # Hackathon setup transcript
-└── package.json
-```
-
 
 ---
 
@@ -371,7 +306,6 @@ workshop/
 ### Install
 
 ```bash
-git clone <repo-url> workshop
 cd workshop
 npm install
 ```
@@ -452,24 +386,6 @@ The live workshop in this repo is hosted at:
 ```
 https://fastidious-elephant-84.convex.site
 ```
-
-
----
-
-## Hackathon submission notes
-
-This project was built for the **Convex All Gas Hackathon** sponsored by OpenAI, Firecrawl, and AgentMail.
-
-- **Event**: Convex All Gas Hackathon
-- **Frontend**: Convex static hosting (`@convex-dev/static-hosting`)
-- **Convex features used**: queries, mutations, actions, schema, indexes, storage, components
-- **Auth**: anonymous session-based (no signup required)
-- **AI model**: MiniMax-M3 via GMI Cloud
-- **Live research fallback**: Firecrawl
-
-The hackathon log lives in `hackathon.md` at the repo root; the original setup transcript is in `setup.md`; the design system is in `DESIGN.md`.
-
-The submission URL and 3-minute demo video are linked from the project README on the submission portal.
 
 
 ---
