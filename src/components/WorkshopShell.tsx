@@ -1,7 +1,6 @@
 import { ReactNode, useCallback } from 'react'
 import { Link } from 'wouter'
 import { useCADStore } from '../lib/cad/store'
-import { exportDocument } from '../lib/cad/persistence'
 import { CompanionHeaderButton } from './companion/CompanionHeaderButton'
 
 const workshopInfo: Record<string, { name: string; description: string }> = {
@@ -37,19 +36,6 @@ export function WorkshopShell({ workshopSlug, children }: WorkshopShellProps) {
   const isCAD = workshopSlug === 'cad'
   const newDocument = useCADStore(state => state.newDocument)
 
-  const handleSave = useCallback(() => {
-    if (!isCAD) return
-    const doc = useCADStore.getState().getDocument()
-    const json = exportDocument(doc)
-    const blob = new Blob([json], { type: 'application/json' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `${doc.name || 'cad_model'}.json`
-    a.click()
-    URL.revokeObjectURL(url)
-  }, [isCAD])
-
   const handleNew = useCallback(() => {
     if (!isCAD) return
     newDocument()
@@ -75,25 +61,15 @@ export function WorkshopShell({ workshopSlug, children }: WorkshopShellProps) {
 
         <div className="header-right">
           {isCAD && (
-            <>
-              <button className="header-action" onClick={handleNew} title="New (Ctrl+N)">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
-                  <polyline points="14 2 14 8 20 8" />
-                  <line x1="12" y1="18" x2="12" y2="12" />
-                  <line x1="9" y1="15" x2="15" y2="15" />
-                </svg>
-                <span>New</span>
-              </button>
-              <button className="header-action" onClick={handleSave} title="Save (Ctrl+S)">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" />
-                  <polyline points="17 21 17 13 7 13 7 21" />
-                  <polyline points="7 3 7 8 15 8" />
-                </svg>
-                <span>Save</span>
-              </button>
-            </>
+            <button className="header-action" onClick={handleNew} title="New (Ctrl+N)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="12" y1="18" x2="12" y2="12" />
+                <line x1="9" y1="15" x2="15" y2="15" />
+              </svg>
+              <span>New</span>
+            </button>
           )}
           <div className="header-divider" />
           <CompanionHeaderButton />

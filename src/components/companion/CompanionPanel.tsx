@@ -113,7 +113,7 @@ export function CompanionPanel({ sessionId, snapshot, suggestions, onClose }: Pr
           context: snapshot,
           question,
           history: recent,
-        })
+        } as any)
         await appendMessage({
           threadId: tid as any,
           role: 'assistant',

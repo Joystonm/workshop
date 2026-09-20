@@ -11,6 +11,7 @@
 import type * as ai from "../ai.js";
 import type * as companion from "../companion.js";
 import type * as companionCatalog from "../companionCatalog.js";
+import type * as http from "../http.js";
 import type * as workshop from "../workshop.js";
 
 import type {
@@ -23,6 +24,7 @@ declare const fullApi: ApiFromModules<{
   ai: typeof ai;
   companion: typeof companion;
   companionCatalog: typeof companionCatalog;
+  http: typeof http;
   workshop: typeof workshop;
 }>;
 
@@ -52,4 +54,6 @@ export declare const internal: FilterApi<
   FunctionReference<any, "internal">
 >;
 
-export declare const components: {};
+export declare const components: {
+  staticHosting: import("@convex-dev/static-hosting/_generated/component.js").ComponentApi<"staticHosting">;
+};

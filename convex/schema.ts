@@ -190,4 +190,12 @@ export default defineSchema({
     createdAt: v.number(),
   }).index('by_user', ['userId'])
     .index('by_user_created', ['userId', 'createdAt']),
+
+  // Static site asset registry. Populated by the build script after
+  // `npx vite build` and served by `convex/http.ts` via Convex storage.
+  staticAssets: defineTable({
+    path: v.string(),
+    storageId: v.id('_storage'),
+    mime: v.string(),
+  }).index('by_path', ['path']),
 })

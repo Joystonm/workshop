@@ -9,20 +9,22 @@
     "preview": "vite preview",
     "convex": "convex dev",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "deploy": "npx @convex-dev/static-hosting deploy"
   },
   "dependencies": {
     "@ai-sdk/openai": "^0.0.66",
     "@anthropic-ai/sdk": "^0.39.0",
+    "@convex-dev/static-hosting": "^0.2.1",
+    "@react-three/drei": "^9.109.0",
+    "@react-three/fiber": "^8.17.0",
+    "clsx": "^2.1.1",
     "convex": "^1.16.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "three": "^0.168.0",
-    "@react-three/fiber": "^8.17.0",
-    "@react-three/drei": "^9.109.0",
-    "zustand": "^4.5.4",
     "wouter": "^3.3.0",
-    "clsx": "^2.1.1"
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "@types/node": "^22.5.0",
